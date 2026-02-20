@@ -1,0 +1,122 @@
+/* 부드러운 스크롤 이동(웜홀 효과)을 위한 필수 설정 */
+html {
+  scroll-behavior: smooth;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  background-color: #050505; /* 꿈속 같은 어두운 배경 */
+  color: #e0e0e0;
+  font-family: 'Times New Roman', Times, serif;
+  /* 스크롤바를 숨겨서 마우스 휠 대신 클릭으로만 이동하게 유도 (선택 사항) */
+  /* overflow: hidden; */ 
+}
+
+/* 거대한 캔버스 (화면의 3배 크기) */
+.canvas-maze {
+  position: relative;
+  width: 300vw; 
+  height: 300vh;
+}
+
+/* 탈출 버튼 (항상 화면 우측 상단에 고정) */
+.escape-btn {
+  position: fixed;
+  top: 40px;
+  right: 40px;
+  font-family: 'Helvetica', sans-serif;
+  font-size: 14px;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 2px;
+  z-index: 100;
+  transition: color 0.3s;
+}
+
+.escape-btn:hover {
+  color: #D9381E;
+}
+
+/* 텍스트 블록 공통 스타일 */
+/* 텍스트 블록 기본 상태 (안개에 가려진 상태) */
+.text-block {
+  position: absolute; 
+  width: 450px;       
+  font-size: 20px;
+  line-height: 1.6;
+  
+  /* [추가된 마법의 코드] */
+  opacity: 0; /* 처음엔 투명해서 안 보임 */
+  filter: blur(10px); /* 초점이 나간 것처럼 흐리게 */
+  transform: translateY(40px); /* 살짝 아래로 내려가 있음 */
+  
+  /* 2초 동안 아주 아주 느리고 우아하게 변하도록 설정 */
+  transition: opacity 2s ease-out, filter 2s ease-out, transform 2s ease-out;
+}
+
+/* 화면에 들어왔을 때 (안개가 걷힌 상태) */
+.text-block.visible {
+  opacity: 1; /* 완전 선명하게 */
+  filter: blur(0); /* 흐림 효과 제거 */
+  transform: translateY(0); /* 원래 위치로 스르륵 올라옴 */
+}
+
+/* 📍 각 텍스트 블록의 미로 속 좌표 위치 (기존과 동일) */
+#block-1 { top: 20vh; left: 20vw; }
+#block-2 { top: 120vh; left: 150vw; }
+#block-3 { top: 220vh; left: 30vw; }
+#block-4 { top: 250vh; left: 200vw; font-style: italic; font-size: 24px; }
+
+
+/* 📍 각 텍스트 블록의 미로 속 좌표 위치 (핵심!) */
+/* 시작점: 화면 중앙쯤 */
+#block-1 {
+  top: 20vh;
+  left: 20vw;
+}
+
+/* 두 번째: 화면 오른쪽 아래 저 멀리 */
+#block-2 {
+  top: 120vh;
+  left: 150vw;
+}
+
+/* 세 번째: 다시 왼쪽 아래로 급커브 */
+#block-3 {
+  top: 220vh;
+  left: 30vw;
+}
+
+/* 네 번째(결말): 오른쪽 끝 */
+#block-4 {
+  top: 250vh;
+  left: 200vw;
+  font-style: italic; /* 결말의 극적 효과 */
+  font-size: 24px;
+}
+
+/* 비밀 링크 (단어) 디자인 */
+.maze-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 1px dashed #555; /* 숨겨진 힌트처럼 점선 밑줄 */
+  transition: all 0.3s ease;
+  cursor: help; /* 커서 모양 변경으로 호기심 유발 */
+}
+
+/* 링크에 마우스를 올렸을 때: 환상 속으로 빨려 들어가는 붉은 빛 */
+.maze-link:hover {
+  color: #D9381E;
+  border-bottom: 1px solid #D9381E;
+  text-shadow: 0 0 10px rgba(217, 56, 30, 0.5); /* 텍스트 발광 효과 */
+}
+
+/* 마지막 결말에서 다시 처음으로 돌아가는 무한 루프 링크 */
+.loop-link {
+  color: #D9381E;
+  border-bottom: none;
+  display: inline-block;
+  margin-top: 20px;
+}

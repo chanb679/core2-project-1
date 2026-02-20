@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Circular Ruins - Maze</title>
+<link rel="stylesheet" href="story.css">
+</head>
+<body>
+
+  <a href="index.html" class="escape-btn">ESCAPE (HOME)</a>
+
+  <div class="canvas-maze">
+
+    <div id="block-1" class="text-block">
+      <p>No one saw him disembark in the unanimous night, no one saw the bamboo canoe sinking into the sacred mud, but within a few days no one was unaware that the taciturn man came from the South...</p>
+      <p>He knew that his immediate obligation was to <a href="#block-2" class="maze-link">dream</a>.</p>
+    </div>
+
+    <div id="block-2" class="text-block">
+      <p>The purpose which guided him was not impossible, though it was supernatural. He wanted to dream a man: he wanted to dream him with minute integrity and insert him into reality.</p>
+      <p>He realized that, although he had penetrated the <a href="#block-3" class="maze-link">ruins</a>, he was still outside.</p>
+    </div>
+
+    <div id="block-3" class="text-block">
+      <p>He dreamt that he was in the center of a circular amphitheater... The stranger dreamt of the man he was creating. He dreamt him awake, and then asleep, and then...</p>
+      <p>The <a href="#block-4" class="maze-link">fire</a> was the only thing he feared.</p>
+    </div>
+
+    <div id="block-4" class="text-block final-block">
+      <p>With relief, with humiliation, with terror, he understood that he too was a mere appearance, dreamt by another.</p>
+      <p><a href="#block-1" class="maze-link loop-link">Awake again.</a></p>
+    </div>
+
+  </div>
+</div>
+
+  <script>
+    // 화면에 텍스트 블록이 나타나는지 감시하는 관찰자 생성
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        // 만약 텍스트 블록이 화면에 들어왔다면?
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible'); // 안개 걷히는 애니메이션 실행!
+        } else {
+          // 화면에서 벗어나면 다시 안개 속으로 숨김 (무한 루프를 위해)
+          entry.target.classList.remove('visible');
+        }
+      });
+    }, {
+      threshold: 0.4 // 텍스트 블록이 화면에 40% 이상 보일 때 작동 시작
+    });
+
+    // 모든 텍스트 블록(.text-block)에 관찰자 붙이기
+    document.querySelectorAll('.text-block').forEach(block => {
+      observer.observe(block);
+    });
+  </script>
+</body>
+</html>
+</body>
+</html>

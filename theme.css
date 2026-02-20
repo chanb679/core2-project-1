@@ -1,0 +1,138 @@
+/* =========================================
+   1. 기본 설정 (Reset & Base)
+   ========================================= */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f4f4f4;
+  font-family: 'Times New Roman', Times, serif;
+  color: #111;
+  overflow: hidden; /* 스크롤바 완벽 제거 */
+}
+
+/* =========================================
+   2. 상단 네비게이션
+   ========================================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 60px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 100;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.logo { 
+  font-family: 'Times New Roman', Times, serif; 
+  font-size: 28px; 
+  font-style: italic; 
+}
+.nav-links a { 
+  text-decoration: none; 
+  color: #111; 
+  margin-left: 30px; 
+  font-size: 14px; 
+  letter-spacing: 0.5px; 
+  transition: color 0.3s ease; 
+}
+.nav-links a:hover { 
+  color: #1d34e1; 
+}
+.nav-links a.active { 
+  border-bottom: 1px solid #111; 
+  padding-bottom: 2px; 
+}
+
+/* =========================================
+   3. 무한 텍스트 마키 (Infinite Marquee)
+   ========================================= */
+.marquee-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  padding-top: 40px; 
+}
+
+.marquee-row {
+  width: 100%;
+  border-bottom: 1px solid #ccc; /* 부드러운 실선 */
+  overflow: hidden;
+  display: flex;
+  white-space: nowrap;
+  padding: 1.5vh 0; 
+}
+
+.border-top {
+  border-top: 1px solid #ccc;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+.marquee-content {
+  display: flex;
+  font-size: 7.5vw; /* 화면을 꽉 채우는 압도적인 크기 */
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.marquee-content span {
+  padding-right: 30px; 
+}
+
+.italic {
+  font-style: italic;
+  color: #888; /* 두 번째 줄 대비감 */
+}
+
+/* 마우스 호버 시 텍스트 흐름 정지 */
+.marquee-row:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* =========================================
+   4. 클릭 가능한 키워드 (가장 중요한 인터랙션)
+   ========================================= */
+.keyword {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  transition: color 0.3s ease;
+  font-weight: 600; /* 살짝 두껍게 처리하여 클릭 유도 */
+}
+
+/* 밑줄: 평소에는 투명하게 숨겨둠 */
+.keyword::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #001eff;
+  transform: scaleX(0); /* 길이가 0이라 보이지 않음 */
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+/* 마우스를 올렸을 때만 색이 변하고 밑줄이 스윽 나타남 */
+.keyword:hover {
+  color: #1620e1;
+}
+.keyword:hover::after {
+  transform: scaleX(1);
+}
+
+/* =========================================
+   5. 애니메이션 속도 및 방향
+   ========================================= */
+.track-left { animation: scroll-left linear infinite; }
+.track-right { animation: scroll-right l

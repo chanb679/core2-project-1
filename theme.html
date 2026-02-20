@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme - Endless Illusion</title>
+<link rel="stylesheet" href="theme.css">
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo"></div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="theme.html" class="active">Theme</a>
+      <a href="story.html">Story</a>
+      <a href="fulltext.html">Full Text</a>
+    </nav>
+  </header>
+
+  <main class="marquee-wrapper">
+    
+    <div class="marquee-row border-top">
+      <div class="marquee-track track-left fast">
+        <div class="marquee-content">
+          <span>HE WANTED TO <span class="keyword" data-title="THE DREAM" data-desc="The man's only goal was to dream another human being into the real world. He focused all his energy on creating life purely from his imagination.">DREAM</span> A MAN INTO REALITY • </span>
+          <span>HE WANTED TO <span class="keyword" data-title="THE DREAM" data-desc="The man's only goal was to dream another human being into the real world. He focused all his energy on creating life purely from his imagination.">DREAM</span> A MAN INTO REALITY • </span>
+        </div>
+        <div class="marquee-content">
+          <span>HE WANTED TO <span class="keyword" data-title="THE DREAM" data-desc="The man's only goal was to dream another human being into the real world. He focused all his energy on creating life purely from his imagination.">DREAM</span> A MAN INTO REALITY • </span>
+          <span>HE WANTED TO <span class="keyword" data-title="THE DREAM" data-desc="The man's only goal was to dream another human being into the real world. He focused all his energy on creating life purely from his imagination.">DREAM</span> A MAN INTO REALITY • </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee-row">
+      <div class="marquee-track track-right slow">
+        <div class="marquee-content">
+          <span class="italic">HIS <span class="keyword" data-title="THE ILLUSION" data-desc="At the end of the story, the man walks into fire but does not burn. In this shocking moment, he realizes that the solid world around him is just an illusion.">REALITY</span> DISSOLVED IN THE FLAMES</span><span> • </span>
+          <span class="italic">HIS <span class="keyword" data-title="THE ILLUSION" data-desc="At the end of the story, the man walks into fire but does not burn. In this shocking moment, he realizes that the solid world around him is just an illusion.">REALITY</span> DISSOLVED IN THE FLAMES</span><span> • </span>
+        </div>
+        <div class="marquee-content">
+          <span class="italic">HIS <span class="keyword" data-title="THE ILLUSION" data-desc="At the end of the story, the man walks into fire but does not burn. In this shocking moment, he realizes that the solid world around him is just an illusion.">REALITY</span> DISSOLVED IN THE FLAMES</span><span> • </span>
+          <span class="italic">HIS <span class="keyword" data-title="THE ILLUSION" data-desc="At the end of the story, the man walks into fire but does not burn. In this shocking moment, he realizes that the solid world around him is just an illusion.">REALITY</span> DISSOLVED IN THE FLAMES</span><span> • </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="marquee-row">
+      <div class="marquee-track track-left normal">
+        <div class="marquee-content">
+          <span>HE WAS ONLY A <span class="keyword" data-title="THE PHANTOM" data-desc="This is the final twist of the story. The creator discovers that he is not real either. He is just a ghost being dreamed by someone else.">PHANTOM</span>, DREAMT BY ANOTHER • </span>
+          <span>HE WAS ONLY A <span class="keyword" data-title="THE PHANTOM" data-desc="This is the final twist of the story. The creator discovers that he is not real either. He is just a ghost being dreamed by someone else.">PHANTOM</span>, DREAMT BY ANOTHER • </span>
+        </div>
+        <div class="marquee-content">
+          <span>HE WAS ONLY A <span class="keyword" data-title="THE PHANTOM" data-desc="This is the final twist of the story. The creator discovers that he is not real either. He is just a ghost being dreamed by someone else.">PHANTOM</span>, DREAMT BY ANOTHER • </span>
+          <span>HE WAS ONLY A <span class="keyword" data-title="THE PHANTOM" data-desc="This is the final twist of the story. The creator discovers that he is not real either. He is just a ghost being dreamed by someone else.">PHANTOM</span>, DREAMT BY ANOTHER • </span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="bottom-caption"> <i>The Circular Ruins</i></div>
+
+  <div class="info-modal" id="infoModal">
+    <div class="modal-box">
+      <div class="close-btn" id="closeModal">CLOSE ✕</div>
+      <h2 id="modalTitle">TITLE</h2>
+      <p id="modalDesc">Description goes here.</p>
+    </div>
+  </div>
+
+  <script>
+    // 클릭 이벤트 로직
+    const keywords = document.querySelectorAll('.keyword');
+    const modal = document.getElementById('infoModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const closeBtn = document.getElementById('closeModal');
+
+    // 키워드를 클릭하면 모달에 데이터를 넣고 띄움
+    keywords.forEach(word => {
+      word.addEventListener('click', function() {
+        const title = this.getAttribute('data-title');
+        const desc = this.getAttribute('data-desc');
+        
+        modalTitle.textContent = title;
+        modalDesc.textContent = desc;
+        modal.classList.add('show');
+      });
+    });
+
+    // 닫기 버튼 및 배경 클릭 시 모달 숨김
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('show');
+    });
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) {
+        modal.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>

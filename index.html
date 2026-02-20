@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home page</title>
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    font-family: 'Times New Roman', Times, serif;
+    overflow: hidden; 
+    user-select: none;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+    font-family: 'Helvetica', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+    transform: rotate(90deg);
+    cursor: pointer;
+    z-index: 100;
+  }
+
+  #wheel-hub {
+    position: fixed;
+    top: 50%;
+    left: -150vw;
+    width: 0;
+    height: 0;
+  }
+
+  .item {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-size: 100px;
+    font-weight: 400;
+    white-space: nowrap;
+    line-height: 1;
+    transform-origin: 0 50%;
+    will-change: transform, opacity;
+    cursor: pointer; /* 마우스 오버 시 손가락 모양 */
+    color: #111;
+    transition: color 0.3s ease; /* 색상 변경 애니메이션 */
+  }
+
+  @media (min-width: 1400px) {
+    .item { font-size: 128px; }
+  }
+
+  /* 호버 시 전체 아이템 색상 변경 */
+  .item:hover {
+    color: #D9381E; /* 매거진 스타일의 클래식 레드 포인트 */
+  }
+
+  /* 숫자 스타일 */
+  .item .num {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 0.3em;
+    vertical-align: top;
+    margin-right: 20px;
+    font-weight: 700;
+    color: #111; /* 숫자는 검은색으로 고정하여 대비 효과 부여 */
+    transition: color 0.3s ease;
+  }
+
+  /* 메인 텍스트 래퍼 (밑줄 기준점) */
+  .item .text-label {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* 밑줄 애니메이션 디자인 */
+  .item .text-label::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 6px; /* 폰트 크기에 맞춘 두꺼운 밑줄 */
+    bottom: 12%; 
+    left: 0;
+    background-color: #D9381E;
+    transform: scaleX(0); /* 기본 상태에서는 길이가 0 (안 보임) */
+    transform-origin: right; /* 마우스가 빠질 때 오른쪽으로 줄어듦 */
+    transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1); /* 스무스한 가속도 부여 */
+  }
+
+  /* 마우스 호버 시 밑줄이 왼쪽에서부터 뻗어나옴 */
+  .item:hover .text-label::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+</style>
+</head>
+<body>
+
+  <div class="close-btn"></div>
+  <div id="wheel-hub"></div>
+
+<script>
+  // [수정됨] 배열을 객체 형태로 바꿔서 텍스트와 링크(url)를 연결했습니다.
+  const menuData = [
+    { text: "ABOUT", url: "about.html" },
+    { text: "EXPLORE THEME", url: "theme.html" },
+    { text: "STORY", url: "story.html" },
+    { text: "FULL TEXT", url: "fulltext.html" } // (실제 만드신 파일명에 맞춰서 수정해주세요!)
+  ];
+
+  const hub = document.getElementById('wheel-hub');
+  
+  const RADIUS_VW = 210;
+  const ANGLE_STEP = 7;
+  
+  const totalItems = Math.ceil(360 / ANGLE_STEP); 
+  const items = [];
+
+  function init() {
+    for (let i = 0; i < totalItems; i++) {
+      const item = document.createElement('div');
+      item.className = 'item';
+      
+      const dataIndex = i % menuData.length;
+      const menu = menuData[dataIndex]; // [수정됨] 현재 데이터 객체 가져오기
+      const num = dataIndex + 1;
+
+      // 텍스트와 숫자를 각각 span으로 감싸서 CSS로 분리 제어할 수 있게 설정
+      item.innerHTML = `<span class="num">${num}</span><span class="text-label">${menu.text}</span>`;
+      item.dataset.angle = i * ANGLE_STEP; 
+      
+      // [새로 추가된 핵심 코드] 클릭하면 바로 url로 이동합니다!
+      item.addEventListener('click', () => {
+        window.location.href = menu.url;
+      });
+      
+      hub.appendChild(item);
+      items.push(item);
+    }
+  }
+  
+  init();
+
+  let currentRotation = 0;
+  let targetRotation = 0;
+  let velocity = 0;
+
+  window.addEventListener('wheel', (e) => {
+    targetRotation += e.deltaY * 0.05; 
+  });
+
+  function animate() {
+    const nextRotation = currentRotation + (targetRotation - currentRotation) * 0.07;
+    velocity = nextRotation - currentRotation;
+    currentRotation = nextRotation;
+
+    const radiusPx = (window.innerWidth * RADIUS_VW) / 100;
+
+    items.forEach((item) => {
+      const itemBaseAngle = parseFloat(item.dataset.angle);
+      let currentItemAngle = (itemBaseAngle + currentRotation) % 360;
+      
+      if (currentItemAngle > 180) currentItemAngle -= 360;
+      if (currentItemAngle < -180) currentItemAngle += 360;
+
+      let opacity = 1 - Math.abs(currentItemAngle) / 30; 
+      if (opacity < 0.1) opacity = 0.1;
+      
+      let skew = velocity * 1.5; 
+      
+      item.style.opacity = opacity;
+      item.style.transform = `
+        rotate(${itemBaseAngle}deg) 
+        translateX(${radiusPx}px) 
+        translateY(-50%)
+        skewX(${skew}deg)
+      `;
+    });
+
+    hub.style.transform = `translateY(-50%) rotate(${currentRotation}deg)`;
+    
+    requestAnimationFrame(animate);
+  }
+  
+  animate();
+</script>
+</body>
+</html>

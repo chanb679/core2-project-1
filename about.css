@@ -1,0 +1,87 @@
+/* 기본 초기화 및 전체 폰트 설정 */
+body, html {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #ffffff; /* 깨끗한 흰색 배경 */
+  color: #111;
+}
+
+/* 상단 내비게이션 바 디자인 */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 60px;
+}
+
+/* 로고 (레퍼런스 이미지의 스크립트/세리프 느낌 폰트) */
+.logo {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* 오른쪽 메뉴 스타일 */
+.nav-links a {
+  text-decoration: none;
+  color: #111;
+  margin-left: 30px;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+
+/* 현재 페이지(About)에 밑줄 표시 */
+.nav-links a.active {
+  border-bottom: 1px solid #111;
+  padding-bottom: 2px;
+}
+
+/* 메인 레이아웃 (플렉스박스로 가로 배치) */
+.about-container {
+  display: flex;
+  align-items: center; /* 이미지와 텍스트를 수직 중앙 정렬 */
+  justify-content: center;
+  max-width: 1100px;
+  margin: 100px auto; /* 위아래 여백을 줘서 중앙으로 배치 */
+  padding: 0 40px;
+  gap: 80px; /* 이미지와 텍스트 사이의 간격 */
+}
+
+/* 이미지 컨테이너 고정 (텍스트가 길어져도 이미지 크기 유지) */
+.image-wrapper {
+  flex-shrink: 0;
+}
+
+/* 폴라로이드 프레임 스타일 */
+.polaroid-img {
+  width: 320px; /* 사진 너비 */
+  height: auto;
+  display: block;
+  /* 테두리와 안쪽 여백으로 폴라로이드 느낌 구현 */
+  padding: 15px 15px 45px 15px; 
+  background-color: #fafafa;
+  border: 1px solid #eaeaea;
+  box-shadow: 2px 4px 15px rgba(0, 0, 0, 0.08); /* 부드러운 그림자 */
+}
+
+/* 텍스트 블록 스타일 (가로 너비를 제한해서 레퍼런스처럼 좁고 긴 형태로 만듦) */
+.text-wrapper {
+  max-width: 420px; 
+}
+
+.text-wrapper h2 {
+  font-size: 16px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-transform: uppercase; /* 대문자로 깔끔하게 */
+  letter-spacing: 1px;
+}
+
+.text-wrapper p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #333;
+}
