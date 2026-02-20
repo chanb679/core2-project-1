@@ -135,4 +135,105 @@ body, html {
    5. 애니메이션 속도 및 방향
    ========================================= */
 .track-left { animation: scroll-left linear infinite; }
-.track-right { animation: scroll-right l
+.track-right { animation: scroll-right linear infinite; }
+
+/* 눈이 편안한 아주 느린 속도 */
+.fast { animation-duration: 50s; }
+.normal { animation-duration: 65s; }
+.slow { animation-duration: 80s; }
+
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* =========================================
+   6. 하단 캡션
+   ========================================= */
+.bottom-caption {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #888;
+  text-transform: uppercase;
+  z-index: 100;
+}
+
+/* =========================================
+   7. 설명 모달 창 (팝업)
+   ========================================= */
+.info-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(244, 244, 244, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none; 
+  transition: opacity 0.4s ease;
+}
+
+.info-modal.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box {
+  max-width: 500px;
+  text-align: center;
+  padding: 40px;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
+}
+
+.info-modal.show .modal-box {
+  transform: translateY(0);
+}
+
+.modal-box h2 {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 32px;
+  letter-spacing: 2px;
+  color: #000000;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.modal-box p {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  color: #444;
+  word-break: keep-all; 
+}
+
+.close-btn {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #631ed9;
+}
